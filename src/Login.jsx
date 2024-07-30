@@ -1,135 +1,155 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+export default function Login() {
   const navigate = useNavigate();
-  const [timer, setTimer] = useState(0);
-  const [gmtTime, setGmtTime] = useState("");
-  const [message, setMessage] = useState("");
-  const [hours, setHours] = useState("");
-  const [minutes, setMinutes] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    const updateGmtTime = () => {
-      setGmtTime(new Date().toISOString().substr(11, 8));
-    };
+  const handleSignIn = async (e) => {
+    e.preventDefault();
 
-    const intervalId = setInterval(() => {
-      updateGmtTime(); // Update GMT time every second
+    // Simple client-side validation
+    if (!email || !password) {
+      setError("Please enter both email and password.");
+      return;
+    }
 
-      setTimer((prevTimer) => {
-        if (prevTimer > 0) {
-          return prevTimer - 1;
-        } else {
-          return 0;
-        }
+    try {
+      // Fetch user from server
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
       });
 
-      // Check if GMT time matches the set time
-      const setHoursInt = parseInt(hours, 10);
-      const setMinutesInt = parseInt(minutes, 10);
-      const gmtHours = parseInt(gmtTime.substr(0, 2), 10);
-      const gmtMinutes = parseInt(gmtTime.substr(3, 2), 10);
-
-      if (
-        !isNaN(setHoursInt) &&
-        !isNaN(setMinutesInt) &&
-        gmtHours === setHoursInt &&
-        gmtMinutes === setMinutesInt
-      ) {
-        setMessage("Done.");
-        handleSignIn();
-      } else {
-        setMessage("");
+      if (!response.ok) {
+        throw new Error("Invalid email or password");
       }
-    }, 1000);
 
-    // Initialize GMT time immediately
-    updateGmtTime();
+      const user = await response.json();
 
-    return () => clearInterval(intervalId);
-  }, [gmtTime, hours, minutes]);
-
-  const handleSignIn = () => {
-    // Here you can add your authentication logic
-    navigate("/dashboard");
+      // Compare hashed password
+      
+      navigate("/dashboard");
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
-  const handleHoursChange = (e) => {
-    setHours(e.target.value);
-  };
-
-  const handleMinutesChange = (e) => {
-    setMinutes(e.target.value);
-  };
-
-  const handleSetTime = (e) => {
-    e.preventDefault();
-    setTimer(0); // Reset timer to zero
-    setHours("");
-    setMinutes("");
+  const goToInsertUser = () => {
+    navigate("/insert-user");
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
-      <div className="max-w-screen-xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+    <main className="w-full h-screen flex flex-col items-center justify-center px-4">
+      <div className="max-w-sm w-full text-gray-600 space-y-5">
+        <div className="text-center pb-8">
+          <img src="./logo.png" width={150} className="mx-auto" alt="Logo" />
+          <div className="mt-5">
+            <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
+              Log in to your account
+            </h3>
+          </div>
+        </div>
+        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+        <form onSubmit={handleSignIn} className="space-y-5">
           <div>
-            <h1>E-Ultras Winners</h1>
+            <label className="font-medium">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-yellow-600 shadow-sm rounded-lg"
+            />
           </div>
-          <div className="mt-12 flex flex-col items-center">
-            <form
-              onSubmit={handleSetTime}
-              className="w-full max-w-xs flex flex-col items-center"
-            ></form>
-            <div className="w-full flex-1 mt-8">
-              <br />
-              <div className="mx-auto max-w-xs">
-                <img
-                  src="Logo_Wydad_Athletic_Club.png"
-                  alt="Logo Wydad Athletic Club"
-                  className="mx-8"
-                />
-                <br />
-                <p className="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by Cartesian Kinetics
-                  <a
-                    href="#"
-                    className="border-b border-gray-500 border-dotted"
-                  >
-                    Terms of Service
-                  </a>
-                  and its
-                  <a
-                    href="#"
-                    className="border-b border-gray-500 border-dotted"
-                  >
-                    Privacy Policy
-                  </a>
-                </p>
-              </div>
+          <div>
+            <label className="font-medium">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-yellow-600 shadow-sm rounded-lg"
+            />
+          </div>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center gap-x-3">
+              <input
+                type="checkbox"
+                id="remember-me-checkbox"
+                className="checkbox-item peer hidden"
+              />
+              <label
+                htmlFor="remember-me-checkbox"
+                className="relative flex w-5 h-5 bg-white peer-checked:bg-yellow-600 rounded-md border ring-offset-2 ring-yellow-600 duration-150 peer-active:ring cursor-pointer after:absolute after:inset-x-0 after:top-[3px] after:m-auto after:w-1.5 after:h-2.5 after:border-r-2 after:border-b-2 after:border-white after:rotate-45"
+              ></label>
+              <span>Remember me</span>
             </div>
-            <button
-              type="button"
-              onClick={handleSignIn}
-              className="mt-4 w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-red-500 text-white flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+            <a
+              href="#"
+              className="text-center text-yellow-600 hover:text-yellow-500"
             >
-              Start
-            </button>
+              Forgot password?
+            </a>
           </div>
-        </div>
-        <div className="flex-1 bg-green-100 text-center hidden lg:flex">
-          <div
-            className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat"
-            style={{
-              backgroundImage:
-                "url('https://drive.google.com/uc?export=view&id=1KZ_Ub_2lZ0dHbKV0fAIhxVhiQA183RCz')",
-            }}
-          />
-        </div>
+          <button className="w-full px-4 py-2 text-white font-medium bg-yellow-600 hover:bg-yellow-500 active:bg-yellow-600 rounded-lg duration-150">
+            Sign in
+          </button>
+        </form>
+        <button
+          onClick={goToInsertUser}
+          className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 mt-4"
+        >
+          Go to Insert User Page
+        </button>
+        <button className="w-full flex items-center justify-center gap-x-3 py-2.5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100 mt-4">
+          <svg
+            className="w-5 h-5"
+            viewBox="0 0 48 48"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g clipPath="url(#clip0_17_40)">
+              <path
+                d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.9181H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z"
+                fill="#4285F4"
+              />
+              <path
+                d="M24.48 48.0016C30.9529 48.0016 36.4116 45.8764 40.3888 42.2078L32.6549 36.2111C30.5031 37.675 27.7252 38.5039 24.4888 38.5039C18.2275 38.5039 12.9187 34.2798 11.0139 28.6006H3.03296V34.7825C7.10718 42.8868 15.4056 48.0016 24.48 48.0016Z"
+                fill="#34A853"
+              />
+              <path
+                d="M11.0051 28.6006C9.99973 25.6199 9.99973 22.3922 11.0051 19.4115V13.2296H3.03298C-0.371021 20.0112 -0.371021 28.0009 3.03298 34.7825L11.0051 28.6006Z"
+                fill="#FBBC04"
+              />
+              <path
+                d="M24.48 9.49932C27.9016 9.44641 31.2086 10.7339 33.6866 13.0973L40.5387 6.24523C36.2 2.17101 30.4414 -0.068932 24.48 0.00161733C15.4055 0.00161733 7.10718 5.11644 3.03296 13.2296L11.005 19.4115C12.901 13.7235 18.2187 9.49932 24.48 9.49932Z"
+                fill="#EA4335"
+              />
+            </g>
+            <defs>
+              <clipPath id="clip0_17_40">
+                <rect width="48" height="48" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          Continue with Google
+        </button>
+        <p className="text-center">
+          Don't have an account?{" "}
+          <a
+            href="#"
+            className="font-medium text-yellow-600 hover:text-yellow-500"
+          >
+            Sign up
+          </a>
+        </p>
       </div>
-    </div>
+    </main>
   );
-};
-
-export default Login;
+}

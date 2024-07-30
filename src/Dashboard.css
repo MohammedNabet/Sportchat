@@ -1,0 +1,45 @@
+.tab-content-enter {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.tab-content-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.tab-content-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.tab-content-exit-active {
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: opacity 300ms, transform 300ms;
+}
+
+.tab-navigation {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #f1f1f1;
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    transition: transform 300ms;
+}
+
+.tab:hover {
+    transform: scale(1.1);
+}
+
+.tab.active {
+    color: #007bff;
+}
