@@ -11,33 +11,6 @@ export default function Login() {
     e.preventDefault();
 
     // Simple client-side validation
-    if (!email || !password) {
-      setError("Please enter both email and password.");
-      return;
-    }
-
-    try {
-      // Fetch user from server
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Invalid email or password");
-      }
-
-      const user = await response.json();
-
-      // Compare hashed password
-      
-      navigate("/dashboard");
-    } catch (err) {
-      setError(err.message);
-    }
   };
 
   const goToInsertUser = () => {
@@ -58,7 +31,7 @@ export default function Login() {
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
         <form onSubmit={handleSignIn} className="space-y-5">
           <div>
-            <label className="font-medium">Email</label>
+            <label className="font-medium">Email v</label>
             <input
               type="email"
               value={email}
