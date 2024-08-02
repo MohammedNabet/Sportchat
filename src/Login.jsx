@@ -29,7 +29,7 @@ export default function Login() {
           </div>
         </div>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-        <form onSubmit={handleSignIn} className="space-y-5">
+        <form className="space-y-5">
           <div>
             <label className="font-medium">Email</label>
             <input
