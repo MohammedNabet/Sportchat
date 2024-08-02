@@ -42,6 +42,20 @@ const Home = ({ user }) => {
 
   const posts = [
     {
+      id: 11,
+      profileImage: "./hu.png",
+      profileName: "Hungary",
+      timeAgo: "1 week ago",
+      postText:
+        "A számokban rejlik az erő! United we stand!  Well done to the Hungarians, who won gold in the épée team event 🇭🇺 L’union fait la force ! Bravo aux hongrois qui remportent l’or à l’épée par équipe 🇭🇺 📸 Getty",
+      hashtags: "#Paris2024",
+      postImage: "./hupost.jpg",
+      views: "123,344,893",
+      likes: "45,876",
+      shares: "45,876",
+      title: "Compétitions par équipes d'épée",
+    },
+    {
       id: 1,
       profileImage: "./maslogo.jpg",
       profileName: "Maghreb Association Sportive de Fès",
@@ -198,7 +212,7 @@ const Home = ({ user }) => {
             className="text-xl font-semibold text-gray-800 font-heading"
             href="#"
           >
-           <img src="./name.png" alt="" className="w-28" />
+            <img src="./name.png" alt="" className="w-28" />
           </a>
         </div>
         <div className="block lg:hidden">

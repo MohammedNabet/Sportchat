@@ -4,6 +4,15 @@ import React from "react";
 export default function Publication() {
   const [publication, setPublication] = React.useState([
     {
+      id: 13,
+      title: "olympic PARIS 2024 ",
+      img: "./ol.png",
+      pay1: "./fr.jpeg",
+      pay2: "./ola.jpg",
+      pay3: "",
+      right: "-right-14",
+    },
+    {
       id: 3,
       title: "Botola inwi pro",
       img: "./botola.png",
@@ -12,6 +21,7 @@ export default function Publication() {
       pay3: "",
       right: "-right-6",
     },
+
     {
       id: 1,
       title: "Coupe du Monde 2026",
