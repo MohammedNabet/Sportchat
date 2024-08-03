@@ -54,6 +54,38 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "Compétitions par équipes d'épée",
+      ver: "w-4 h-4 p-1",
+    },
+    {
+      id: 12,
+      profileImage: "./mlogo.jpg",
+      profileName: "Fédération Royale Marocaine de Football",
+      timeAgo: "1 week ago",
+      postText:
+        "🏆 𝐓𝐇𝐑𝐎𝐍𝐄 𝐂𝐔𝐏 𝐅𝐈𝐍𝐀𝐋 - MATCHDAY Association Sportive des Forces Armées Royales - ASFAR 🆚 Raja Club Athletic 📍Grand Stadium, Agadir 🕔 5PM (Gmt+1)",
+      hashtags: "#Paris2024",
+      postImage: "./fiche.jpg",
+      views: "123,344,893",
+      likes: "45,876",
+      shares: "45,876",
+      title: "Compétitions par équipes d'épée",
+      ver: "w-4 h-4 p-1",
+    },
+
+    {
+      id: 16,
+      profileImage: "./adam.jpeg",
+      profileName: "Adam Alami",
+      timeAgo: "1 week ago",
+      postText:
+        "T-shirt Maroc",
+      hashtags: "#Maroc",
+      postImage: "./adam.jpeg",
+      views: "123,344,893",
+      likes: "45,876",
+      shares: "45,876",
+      title: "Dima maghrib",
+      ver: "w-0 h-0 p-0",
     },
     {
       id: 1,
@@ -67,6 +99,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "MAS vs ASFAR",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 2,
@@ -80,6 +113,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "Rajae",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 3,
@@ -94,6 +128,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "FAN ZONE",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 4,
@@ -117,6 +152,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "Rajae",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 5,
@@ -130,6 +166,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "GOOD LUCK / FAR",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 6,
@@ -153,6 +190,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "Rajae",
+      ver: "w-4 h-4 p-1",
     },
     {
       id: 7,
@@ -167,6 +205,7 @@ const Home = ({ user }) => {
       likes: "45,876",
       shares: "45,876",
       title: "Match Highlight",
+      ver: "w-4 h-4 p-1",
     },
   ];
 

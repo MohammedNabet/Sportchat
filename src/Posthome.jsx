@@ -38,7 +38,7 @@ const Posthome = ({ posts }) => {
                   width="10"
                   height="10"
                   fill="currentColor"
-                  className="absolute bottom-0 right-0 w-4 h-4 p-1 -mx-1 -my-1 text-white bg-black rounded-full fill-current"
+                  className={`absolute bottom-0 right-0 ${post.ver} -mx-1 -my-1 text-white bg-black rounded-full fill-current`}
                   viewBox="0 0 1792 1792"
                   xmlns="http://www.w3.org/2000/svg"
                 >
